@@ -31,7 +31,7 @@ API REST desenvolvida com **Node.js**, **Express** e **MySQL** seguindo o padrã
 **1. Clone o repositório e acesse a pasta**
 
 ```bash
-git clone https://github.com
+git clone https://github.com/madumendes21/todo-api-maria
 cd todo-api-maria
 ```
 
