@@ -7,25 +7,9 @@ API REST desenvolvida com **Node.js**, **Express** e **MySQL** seguindo o padrã
 
 ---
 
-## Sumário
-
-- [Autora](#autora)
-- [Tecnologias](#tecnologias)
-- [Como executar o projeto](#como-executar-o-projeto)
-- [Variáveis de ambiente](#variáveis-de-ambiente)
-- [Banco de dados](#banco-de-dados)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Rotas da API (Endpoints)](#rotas-da-api-endpoints)
-- [Testes e Placar (`npm run conferir`)](#testes-e-placar-npm-run-conferir)
-- [Diagrama de Classes](#diagrama-de-classes)
-- [Quadro Kanban (Sprints 1 e 2)](#quadro-kanban-sprints-1-e-2)
-- [Reflexão Final](#reflexão-final)
-
----
-
 ## Autora
 
-- **Maria Eduarda da Silva Mendes** — [@madumendes21](https://github.com/madumendes21)
+- **Maria Eduarda da Silva Mendes** — [@madumendes21](https://github.com)
 
 ---
 
@@ -49,3 +33,79 @@ API REST desenvolvida com **Node.js**, **Express** e **MySQL** seguindo o padrã
 ```bash
 git clone https://github.com
 cd todo-api-maria
+```
+
+**2. Instale as dependências e configure o ambiente**
+
+```bash
+npm install
+# Crie o arquivo .env baseado no .env.example e configure o DB_NAME=todo_db
+# Execute o script src/database/todo.sql no seu MySQL
+npm run dev
+```
+
+---
+
+## Rotas da API (Endpoints)
+
+Todas as respostas de erro seguem o padrão `{ "erro": "mensagem explicativa" }`.
+
+### Tarefas
+
+| Método | Rota | Descrição | Sucesso | Erros |
+| :--- | :--- | :--- | :---: | :---: |
+| `GET` | `/tarefas` | Lista todas as tarefas (com `LEFT JOIN` em categorias e filtros `?status=` e `?prioridade=`) | `200` | — |
+| `GET` | `/tarefas/:id` | Busca uma tarefa específica pelo ID | `200` | `400`, `404` |
+| `POST` | `/tarefas` | Cria uma nova tarefa | `201` | `400` |
+| `PUT` | `/tarefas/:id` | Atualiza todos os campos de uma tarefa | `200` | `400`, `404` |
+| `PATCH` | `/tarefas/:id` | Atualiza parcialmente os campos enviados de uma tarefa | `200` | `400`, `404` |
+| `DELETE` | `/tarefas/:id` | Remove uma tarefa | `204` | `400`, `404` |
+
+### Categorias
+
+| Método | Rota | Descrição | Sucesso | Erros |
+| :--- | :--- | :--- | :---: | :---: |
+| `GET` | `/categorias` | Lista todas as categorias | `200` | — |
+| `GET` | `/categorias/:id` | Busca uma categoria pelo ID | `200` | `400`, `404` |
+| `POST` | `/categorias` | Cria uma nova categoria | `201` | `400` |
+| `PUT` | `/categorias/:id` | Atualiza o nome de uma categoria (Bônus) | `200` | `400`, `404` |
+| `PATCH` | `/categorias/:id` | Atualiza parcialmente uma categoria (Bônus) | `200` | `400`, `404` |
+| `DELETE` | `/categorias/:id` | Exclui uma categoria (bloqueia com `409` se houver tarefas vinculadas) | `204` | `400`, `404`, `409` |
+
+---
+
+## Testes e Placar (`npm run conferir`)
+
+* **Sprint 1:** `14 de 14`
+* **Sprint 2:** `8 de 8`
+* **Bônus:** `5 de 5`
+
+---
+
+## Diagrama de Classes
+
+![Diagrama de Classes](docs/diagrama-classes.png)
+
+---
+
+## Quadro Kanban (Sprints 1 e 2)
+
+### Sprint 1 — Início
+![Início Sprint 1](docs/sprint1-inicio.png)
+
+### Sprint 1 — Fim
+![Fim Sprint 1](docs/sprint1-fim.png)
+
+### Sprint 2 — Início
+![Início Sprint 2](docs/sprint2-inicio.png)
+
+### Sprint 2 — Fim
+![Fim Sprint 2](docs/sprint2-fim.png)
+
+---
+
+## Reflexão Final
+
+1. **Arquitetura MVC:** Separar rotas, controllers e services facilitou a localização de erros e a organização das regras de negócio e consultas SQL.
+2. **Maior desafio:** Garantir a integridade entre tabelas (`tarefas` e `categorias`), validando a existência de `categoria_id`, retornando dados via `LEFT JOIN` e prevenindo exclusões com o status `409`.
+3. **Divisão em Sprints e Kanban:** Permitiu validar o CRUD básico antes de avançar para os relacionamentos e bônus, mantendo o progresso visualmente rastreável.
