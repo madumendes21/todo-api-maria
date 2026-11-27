@@ -99,7 +99,6 @@ Todas as respostas de erro seguem o padrão `{ "erro": "mensagem explicativa" }`
 ### Sprint 2 — Início
 
 
-
 ### Sprint 2 — Fim
 ![Fim Sprint 2](docs/sprint2-fim.png)
 
